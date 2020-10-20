@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PetShop.Core.Entities\ProductShop.Core.Entities.csproj" />
+    <ProjectReference Include="..\PetShop.Core\ProductShop.Core.csproj" />
+    <ProjectReference Include="..\PetShop.Infrastructure.DataInitializer\ProductShop.Infrastructure.DataInitializer.csproj" />
+    <ProjectReference Include="..\PetShop.Infrastructure.MSSQL.Data\ProductShop.Infrastructure.SQLLite.Data.csproj" />
+    <ProjectReference Include="..\PetShop.Infrastructure.Security\ProductShop.Infrastructure.Security.csproj" />
+  </ItemGroup>
+
+
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PetShop.Core.Entities\ProductShop.Core.Entities.csproj" />
+    <ProjectReference Include="..\PetShop.Core\ProductShop.Core.csproj" />
+  </ItemGroup>
+
+</Project>
