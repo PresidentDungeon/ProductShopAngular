@@ -32,7 +32,7 @@ namespace PetShop.Infrastructure.SQLLite.Data
         public IEnumerable<Product> ReadProductsFilterSearch(Filter filter)
         {
 
-            IQueryable<Product> products = ctx.Products.AsQueryable();
+            IQueryable<Product> products = ctx.Products.Include(product => product.Type).AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.Name))
             {
@@ -40,7 +40,7 @@ namespace PetShop.Infrastructure.SQLLite.Data
             }
             if (!string.IsNullOrEmpty(filter.ProductType))
             {
-                products = from x in products where x.Type.ToLower().Equals(filter.ProductType.ToLower()) select x;
+                products = from x in products where x.Type.Name.ToLower().Equals(filter.ProductType.ToLower()) select x;
             }
             if (!string.IsNullOrEmpty(filter.Sorting) && filter.Sorting.ToLower().Equals("asc"))
             {
@@ -58,12 +58,13 @@ namespace PetShop.Infrastructure.SQLLite.Data
 
         public Product GetProductByID(int ID)
         {
-            return ctx.Products.AsNoTracking().FirstOrDefault(x => x.ID == ID);
+            return ctx.Products.AsNoTracking().Include(product => product.Type).FirstOrDefault(x => x.ID == ID);
         }
 
         public Product UpdateProduct(Product product)
         {
             ctx.Attach(product).State = EntityState.Modified;
+            ctx.Entry(product).Reference(product => product.Type).IsModified = true;
             ctx.SaveChanges();
             return product;
         }

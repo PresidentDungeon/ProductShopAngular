@@ -7,7 +7,7 @@ namespace PetShop.Core.ApplicationService
 {
     public interface IProductService
     {
-        Product CreateProduct(string productName, string type, double price, DateTime createdDate);
+        Product CreateProduct(string productName, ProductType type, double price, DateTime createdDate);
 
         Product AddProduct(Product product);
 

@@ -39,6 +39,8 @@ namespace PetShop.RestAPI
             services.AddScoped<IProductRepository, ProductSQLRepository>();
             services.AddScoped<IUserRepository, UserSQLRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductTypeService, ProductTypeService>();
+            services.AddScoped<IProductTypeRepository, ProductTypeSQLRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IAuthenticationHelper>(new AuthenticationHelper(secretBytes));
             services.AddScoped<InitStaticData>();

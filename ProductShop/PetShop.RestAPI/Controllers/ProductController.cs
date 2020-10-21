@@ -29,7 +29,7 @@ namespace PetShop.RestAPI.Controllers
                 Product productToAdd = ProductService.CreateProduct(product.Name, product.Type, product.Price, product.CreatedDate);
                 Product addedProduct;
 
-                if (string.IsNullOrEmpty(product.Type))
+                if (product.Type == null)
                 {
                     return BadRequest("No product type selected");
                 }
@@ -108,7 +108,7 @@ namespace PetShop.RestAPI.Controllers
 
                 Product productToUpdate = ProductService.CreateProduct(product.Name, product.Type, product.Price, product.CreatedDate);
 
-                if (string.IsNullOrEmpty(product.Type))
+                if (product.Type == null)
                 {
                     return BadRequest("No product type selected");
                 }
