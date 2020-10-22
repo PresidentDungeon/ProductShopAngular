@@ -26,7 +26,7 @@ namespace PetShop.RestAPI.Controllers
         {
             try
             {
-                Product productToAdd = ProductService.CreateProduct(product.Name, product.Type, product.Price, product.CreatedDate);
+                Product productToAdd = ProductService.CreateProduct(product.Name, product.Type, product.Price, product.productColors, product.CreatedDate);
                 Product addedProduct;
 
                 if (product.Type == null)
@@ -106,7 +106,7 @@ namespace PetShop.RestAPI.Controllers
                     return NotFound("No product with such ID found");
                 }
 
-                Product productToUpdate = ProductService.CreateProduct(product.Name, product.Type, product.Price, product.CreatedDate);
+                Product productToUpdate = ProductService.CreateProduct(product.Name, product.Type, product.Price, product.productColors, product.CreatedDate);
 
                 if (product.Type == null)
                 {

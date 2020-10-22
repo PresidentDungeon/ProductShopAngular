@@ -12,12 +12,14 @@ namespace PetShop.Infrastructure.Data
     {
         private IProductRepository ProductRepository;
         private IProductTypeRepository TypeRepository;
+        private IColorRepository ColorRepository;
         private IUserService UserService;
 
-        public InitStaticData(IProductRepository productRepository, IProductTypeRepository typeRepository, IUserService userService)
+        public InitStaticData(IProductRepository productRepository, IProductTypeRepository typeRepository, IColorRepository colorRepository, IUserService userService)
         {
             this.ProductRepository = productRepository;
             this.TypeRepository = typeRepository;
+            this.ColorRepository = colorRepository;
             this.UserService = userService;
         }
         public void InitData()
@@ -30,11 +32,18 @@ namespace PetShop.Infrastructure.Data
             TypeRepository.AddProductType(food);
             TypeRepository.AddProductType(wearable);
 
+            Color red = new Color { ColorDescription = "Red" };
+            Color blue = new Color { ColorDescription = "Blue" };
+
+            ColorRepository.AddColor(red);
+            ColorRepository.AddColor(blue);
+
             ProductRepository.AddProduct(new Product
             {
                 Name = "Super Hammer",
                 Type = tools,
                 Price = 750.0,
+                productColors = new List<ProductColor> { new ProductColor { Color = blue }, new ProductColor { Color = red } },
                 CreatedDate = DateTime.Parse("19-10-2020 18:00", CultureInfo.GetCultureInfo("da-DK").DateTimeFormat),
             });
             ProductRepository.AddProduct(new Product

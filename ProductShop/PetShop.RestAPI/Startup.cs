@@ -36,12 +36,18 @@ namespace PetShop.RestAPI
             Random rand = new Random();
             rand.NextBytes(secretBytes);
 
-            services.AddScoped<IProductRepository, ProductSQLRepository>();
-            services.AddScoped<IUserRepository, UserSQLRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductSQLRepository>();
+
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<IProductTypeRepository, ProductTypeSQLRepository>();
+
+            services.AddScoped<IColorService, ColorService>();
+            services.AddScoped<IColorRepository, ColorSQLRepository>();
+
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserSQLRepository>();
+            
             services.AddSingleton<IAuthenticationHelper>(new AuthenticationHelper(secretBytes));
             services.AddScoped<InitStaticData>();
 
@@ -52,15 +58,21 @@ namespace PetShop.RestAPI
 
             if (Env.IsDevelopment())
             {
-                services.AddDbContext<ProductShopContext>(opt => 
-                    { opt.UseSqlite("Data Source=ProductShopApp.db"); }, 
+                services.AddDbContext<ProductShopContext>(opt =>
+                    {
+                        opt.UseSqlite("Data Source=ProductShopApp.db");
+                        opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                    }, 
                     ServiceLifetime.Transient);
             }
 
             else if (Env.IsProduction())
             {
                 services.AddDbContext<ProductShopContext>(opt =>
-                    { opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); },
+                    {
+                        opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                        opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                    },
                     ServiceLifetime.Transient);
             }
 

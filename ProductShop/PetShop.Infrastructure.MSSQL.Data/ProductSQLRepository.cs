@@ -26,13 +26,13 @@ namespace PetShop.Infrastructure.SQLLite.Data
 
         public IEnumerable<Product> ReadProducts()
         {
-            return ctx.Products.Include(product => product.Type).AsEnumerable();
+            return ctx.Products.Include(product => product.Type).Include(p => p.productColors).ThenInclude(c => c.Color).AsEnumerable();
         }
 
         public IEnumerable<Product> ReadProductsFilterSearch(Filter filter)
         {
 
-            IQueryable<Product> products = ctx.Products.Include(product => product.Type).AsQueryable();
+            IQueryable<Product> products = ctx.Products.Include(product => product.Type).Include(p => p.productColors).ThenInclude(c => c.Color).AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.Name))
             {
@@ -58,15 +58,30 @@ namespace PetShop.Infrastructure.SQLLite.Data
 
         public Product GetProductByID(int ID)
         {
-            return ctx.Products.AsNoTracking().Include(product => product.Type).FirstOrDefault(x => x.ID == ID);
+            return ctx.Products.AsNoTracking().Include(product => product.Type).Include(p => p.productColors)
+                .ThenInclude(c => c.Color).FirstOrDefault(x => x.ID == ID);
         }
 
         public Product UpdateProduct(Product product)
         {
+            List<ProductColor> productColors = ctx.ProductColors.AsNoTracking().ToList();
+
+            //fjerne alle der ikke bruges
+            List<ProductColor> color = productColors.Where(p => product.productColors.All(p2 => p2.ColorID != p.ColorID) && p.ProductID == product.ID).ToList();
+            ctx.ProductColors.RemoveRange(color);
+
+            //tilføje alle nye
+            List<ProductColor> colorsToAdd = product.productColors.Where(p => productColors.All(p2 => p2.ColorID != p.ColorID || p2.ProductID != product.ID)).ToList();
+            colorsToAdd.ForEach(x => x.ProductID = product.ID);
+            ctx.ProductColors.AddRange(colorsToAdd);
+
+            product.productColors = null;
+
             ctx.Attach(product).State = EntityState.Modified;
             ctx.Entry(product).Reference(product => product.Type).IsModified = true;
             ctx.SaveChanges();
-            return product;
+
+            return GetProductByID(product.ID);
         }
 
         public Product DeleteProduct(int ID)

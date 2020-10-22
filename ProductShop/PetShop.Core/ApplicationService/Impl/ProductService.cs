@@ -11,14 +11,16 @@ namespace PetShop.Core.ApplicationService.Impl
     {
         private IProductRepository ProductRepository;
         private IProductTypeRepository ProductTypeRepository;
+        private IColorRepository ColorRepository;
 
-        public ProductService(IProductRepository productRepository, IProductTypeRepository productTypeRepository)
+        public ProductService(IProductRepository productRepository, IProductTypeRepository productTypeRepository, IColorRepository colorRepository)
         {
             this.ProductRepository = productRepository;
             this.ProductTypeRepository = productTypeRepository;
+            this.ColorRepository = colorRepository;
         }
 
-        public Product CreateProduct(string productName, ProductType type, double price, DateTime CreatedDate)
+        public Product CreateProduct(string productName, ProductType type, double price, List<ProductColor> productColors, DateTime CreatedDate)
         {
             if (string.IsNullOrEmpty(productName))
             {
@@ -38,17 +40,26 @@ namespace PetShop.Core.ApplicationService.Impl
                 {
                     throw new ArgumentException("No product type with such an ID found");
                 }
-                //else
-                //{
-                //    type = ProductTypeRepository.ReadTypes().Where((x) => { return x.ID == type.ID; }).FirstOrDefault();
-                //}
+            }
+            if (productColors == null || productColors.Count == 0)
+            {
+                throw new ArgumentException("Entered color description too short");
             }
 
             if ((DateTime.Now.Year - CreatedDate.Year) > 150 || (DateTime.Now.Year - CreatedDate.Year) < 0)
             {
                 throw new ArgumentException("Invalid creation date selected");
             }
-            return new Product { Name = productName, Type = type, Price = price, CreatedDate = CreatedDate };
+
+            foreach (ProductColor color in productColors)
+            {
+                if (ColorRepository.GetColorByID(color.ColorID) == null)
+                {
+                    throw new ArgumentException("Invalid color");
+                }
+            }
+
+            return new Product { Name = productName, Type = type, Price = price, productColors = productColors, CreatedDate = CreatedDate };
         }
 
         public Product AddProduct(Product product)
@@ -99,7 +110,7 @@ namespace PetShop.Core.ApplicationService.Impl
             }
             if(product == null)
             {
-                throw new ArgumentException("Updating product does not excist");
+                throw new ArgumentException("Updating product does not exist");
             }
             product.ID = ID;
             return ProductRepository.UpdateProduct(product);
