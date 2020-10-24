@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.Entities;
@@ -19,7 +20,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [ProducesResponseType(typeof(Color), 201)]
         [ProducesResponseType(400)][ProducesResponseType(500)]
         public ActionResult<Color> CreateColor([FromBody] Color color)
@@ -43,7 +44,6 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         [ProducesResponseType(typeof(IEnumerable<Color>), 200)]
         [ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<IEnumerable<Color>> Get([FromQuery]Filter filter)
@@ -64,7 +64,6 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpGet("{ID}")]
-        //[Authorize]
         [ProducesResponseType(typeof(Color), 200)]
         [ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<Color> GetByID(int ID)
@@ -85,7 +84,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpPut("{ID}")]
-        //[Authorize]
+        [Authorize(Roles = Policies.Admin)]
         [ProducesResponseType(typeof(Color), 202)]
         [ProducesResponseType(400)][ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<Color> UpdateByID(int ID, [FromBody] Color color)
@@ -113,7 +112,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpDelete("{ID}")]
-        //[Authorize]
+        [Authorize(Roles =Policies.Admin)]
         [ProducesResponseType(typeof(Color), 202)]
         [ProducesResponseType(400)][ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<Color> DeleteByID(int ID)

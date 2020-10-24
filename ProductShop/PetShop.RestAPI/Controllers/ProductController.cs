@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.Entities;
@@ -19,7 +20,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [ProducesResponseType(typeof(Product), 201)]
         [ProducesResponseType(400)][ProducesResponseType(500)]
         public ActionResult<Product> CreateProduct([FromBody] Product product)
@@ -50,7 +51,6 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         [ProducesResponseType(typeof(IEnumerable<Product>), 200)]
         [ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<IEnumerable<Product>> Get([FromQuery]Filter filter)
@@ -71,7 +71,6 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpGet("{ID}")]
-        //[Authorize]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<Product> GetByID(int ID)
@@ -92,7 +91,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpPut("{ID}")]
-        //[Authorize]
+        [Authorize(Roles = Policies.Admin)]
         [ProducesResponseType(typeof(Product), 202)]
         [ProducesResponseType(400)][ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<Product> UpdateByID(int ID, [FromBody] Product product)
@@ -128,7 +127,7 @@ namespace PetShop.RestAPI.Controllers
         }
 
         [HttpDelete("{ID}")]
-        //[Authorize]
+        [Authorize(Roles =Policies.Admin)]
         [ProducesResponseType(typeof(Product), 202)]
         [ProducesResponseType(400)][ProducesResponseType(404)][ProducesResponseType(500)]
         public ActionResult<Product> DeleteByID(int ID)
