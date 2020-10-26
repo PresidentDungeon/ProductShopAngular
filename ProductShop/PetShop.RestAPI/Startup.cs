@@ -70,7 +70,7 @@ namespace PetShop.RestAPI
             {
                 services.AddDbContext<ProductShopContext>(opt =>
                     {
-                        opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                        opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
                         opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                     },
                     ServiceLifetime.Transient);
@@ -116,8 +116,6 @@ namespace PetShop.RestAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductShop API");
             });
 
-            if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
@@ -139,7 +137,6 @@ namespace PetShop.RestAPI
                     }
                     
                 }
-            }
 
             app.UseCors();
 
