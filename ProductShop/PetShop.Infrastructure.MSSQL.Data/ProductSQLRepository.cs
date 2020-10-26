@@ -71,7 +71,7 @@ namespace PetShop.Infrastructure.SQLLite.Data
             ctx.ProductColors.RemoveRange(color);
 
             //tilføje alle nye
-            List<ProductColor> colorsToAdd = product.productColors.Where(p => productColors.All(p2 => p2.ColorID != p.ColorID || p2.ProductID != product.ID)).ToList();
+            List<ProductColor> colorsToAdd = product.productColors.Where(p => productColors.All(p2 => p2.ColorID != p.ColorID)).ToList();
             colorsToAdd.ForEach(x => x.ProductID = product.ID);
             ctx.ProductColors.AddRange(colorsToAdd);
 

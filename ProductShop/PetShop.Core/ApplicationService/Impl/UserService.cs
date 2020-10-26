@@ -17,7 +17,7 @@ namespace PetShop.Core.ApplicationService.Impl
             this.UserRepository = userRepository;
             this.AuthenticationHelper = authenticationHelper;
         }
-
+        
         public User Login(LoginInputModel inputModel)
         {
             if (inputModel.Username == null || inputModel.Password == null)
@@ -25,7 +25,7 @@ namespace PetShop.Core.ApplicationService.Impl
                 throw new UnauthorizedAccessException("Username or Password is non-existing");
             }
 
-            User foundUser = GetAllUsers().Where(u => u.Username.Equals(inputModel.Username)).FirstOrDefault();
+            User foundUser = GetAllUsers().FirstOrDefault(u => u.Username.Equals(inputModel.Username));
 
             if (foundUser == null)
             {
@@ -69,6 +69,10 @@ namespace PetShop.Core.ApplicationService.Impl
         {
             if (user != null)
             {
+                if ((from x in GetAllUsers() where x.Username.ToLower().Equals(user.Username.ToLower()) select x).Count() > 0)
+                {
+                    throw new ArgumentException("User with same name already exists");
+                }
                 return UserRepository.AddUser(user);
             }
             return null;
