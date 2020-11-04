@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
-using PetShop.Core.DomainService;
 using PetShop.Core.Entities;
 using PetShop.Core.Entities.Security;
 using System;
@@ -12,12 +11,10 @@ namespace PetShop.RestAPI.Controllers
     public class LoginController : ControllerBase
     {
         private IUserService UserService;
-        private IAuthenticationHelper AuthenticationHelper;
 
-        public LoginController(IUserService userService, IAuthenticationHelper authenticationHelper)
+        public LoginController(IUserService userService)
         {
             UserService = userService;
-            AuthenticationHelper = authenticationHelper;
         }
 
         [HttpPost]
@@ -32,7 +29,7 @@ namespace PetShop.RestAPI.Controllers
                     return Unauthorized();
                 }
 
-                var tokenString = AuthenticationHelper.GenerateJWTToken(foundUser);
+                var tokenString = UserService.GenerateJWTToken(foundUser);
 
                 return Ok(new
                 {

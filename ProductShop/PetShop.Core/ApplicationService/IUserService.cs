@@ -8,6 +8,8 @@ namespace PetShop.Core.ApplicationService
     {
         User Login(LoginInputModel inputModel);
 
+        string GenerateJWTToken(User foundUser);
+
         User CreateUser(string userName, string password, string userRole);
 
         User AddUser(User user);

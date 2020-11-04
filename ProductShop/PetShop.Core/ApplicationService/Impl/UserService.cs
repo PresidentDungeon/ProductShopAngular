@@ -37,6 +37,11 @@ namespace PetShop.Core.ApplicationService.Impl
             return foundUser;
         }
 
+        public string GenerateJWTToken(User foundUser)
+        {
+            return AuthenticationHelper.GenerateJWTToken(foundUser);
+        }
+
         public User CreateUser(string userName, string password, string userRole)
         {
             int minPasswordLenght = 5;
