@@ -34,8 +34,6 @@ namespace PetShop.RestAPI.Controllers
                 return Ok(new
                 {
                     ID = foundUser.ID,
-                    Username = foundUser.Username,
-                    Role = foundUser.UserRole,
                     Token = tokenString
                 });
             }
