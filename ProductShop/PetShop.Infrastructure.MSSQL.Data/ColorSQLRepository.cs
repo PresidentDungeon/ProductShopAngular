@@ -68,10 +68,10 @@ namespace PetShop.Infrastructure.SQLLite.Data
 
             int totalItems = colors.Count();
 
-            if (filter.CurrentPage > 1)
+            if (filter.CurrentPage > 0)
             {
                 colors = colors.Skip((filter.CurrentPage - 1) * filter.ItemsPrPage).Take(filter.ItemsPrPage);
-                if (colors.Count() == 0)
+                if (colors.Count() == 0 && filter.CurrentPage > 1)
                 {
                     throw new InvalidDataException("Index out of bounds");
                 }
