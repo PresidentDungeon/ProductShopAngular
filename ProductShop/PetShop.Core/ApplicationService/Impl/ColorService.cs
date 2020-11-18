@@ -1,5 +1,6 @@
 ﻿using PetShop.Core.DomainService;
 using PetShop.Core.Entities;
+using ProductShop.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,6 +68,16 @@ namespace PetShop.Core.ApplicationService.Impl
             return colors.ToList();
         }
 
+        public FilterList<Color> GetColorsFilterSearchList(Filter filter)
+        {
+            if (filter.CurrentPage < 0 || filter.ItemsPrPage < 0)
+            {
+                throw new InvalidDataException("Page or items per page must be above zero");
+            }
+
+            return ColorRepository.ReadColorsFilterSearchList(filter);
+        }
+
         public Color GetColorByID(int ID)
         {
             return ColorRepository.GetColorByID(ID);
@@ -98,5 +109,7 @@ namespace PetShop.Core.ApplicationService.Impl
             }
             return ColorRepository.DeleteColor(ID);
         }
+
+        
     }
 }

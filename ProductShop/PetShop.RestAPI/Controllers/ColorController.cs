@@ -63,6 +63,26 @@ namespace PetShop.RestAPI.Controllers
             }
         }
 
+        [HttpGet("test")]
+        [ProducesResponseType(typeof(IEnumerable<Color>), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public ActionResult<IEnumerable<Color>> GetColorTest([FromQuery] Filter filter)
+        {
+            try
+            {
+                return Ok(ColorService.GetColorsFilterSearchList(filter));
+            }
+            catch (InvalidDataException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error loading colors. Please try again...");
+            }
+        }
+
         [HttpGet("{ID}")]
         [ProducesResponseType(typeof(Color), 200)]
         [ProducesResponseType(404)][ProducesResponseType(500)]

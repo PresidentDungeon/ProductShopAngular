@@ -38,6 +38,68 @@ namespace PetShop.Infrastructure.Data
             ColorRepository.AddColor(red);
             ColorRepository.AddColor(blue);
 
+            Color green = new Color { ColorDescription = "Green" };
+            Color yellow = new Color { ColorDescription = "Yellow" };
+            Color orange = new Color { ColorDescription = "Orange" };
+            Color purple = new Color { ColorDescription = "Purple" };
+            Color caramel = new Color { ColorDescription = "Caramel" };
+            Color green1 = new Color { ColorDescription = "Green" };
+            Color yellow1 = new Color { ColorDescription = "Yellow" };
+            Color orange1 = new Color { ColorDescription = "Orange" };
+            Color purple1 = new Color { ColorDescription = "Purple" };
+            Color caramel1 = new Color { ColorDescription = "Caramel" };
+            Color green2 = new Color { ColorDescription = "Green" };
+            Color yellow2 = new Color { ColorDescription = "Yellow" };
+            Color orange2 = new Color { ColorDescription = "Orange" };
+            Color purple2 = new Color { ColorDescription = "Purple" };
+            Color caramel2 = new Color { ColorDescription = "Caramel" };
+            Color green3 = new Color { ColorDescription = "Green" };
+            Color yellow3 = new Color { ColorDescription = "Yellow" };
+            Color orange3 = new Color { ColorDescription = "Orange" };
+            Color purple3 = new Color { ColorDescription = "Purple" };
+            Color caramel3 = new Color { ColorDescription = "Caramel" };
+            Color green4 = new Color { ColorDescription = "Green" };
+            Color yellow4 = new Color { ColorDescription = "Yellow" };
+            Color orange4 = new Color { ColorDescription = "Orange" };
+            Color purple4 = new Color { ColorDescription = "Purple" };
+            Color caramel4 = new Color { ColorDescription = "Caramel" };
+            Color green5 = new Color { ColorDescription = "Green" };
+            Color yellow5 = new Color { ColorDescription = "Yellow" };
+            Color orange5 = new Color { ColorDescription = "Orange" };
+            Color purple5 = new Color { ColorDescription = "Purple" };
+            Color caramel5 = new Color { ColorDescription = "Caramel" };
+
+            ColorRepository.AddColor(green);
+            ColorRepository.AddColor(yellow);
+            ColorRepository.AddColor(orange);
+            ColorRepository.AddColor(purple);
+            ColorRepository.AddColor(caramel);
+            ColorRepository.AddColor(green1);
+            ColorRepository.AddColor(yellow1);
+            ColorRepository.AddColor(orange1);
+            ColorRepository.AddColor(purple1);
+            ColorRepository.AddColor(caramel1);
+            ColorRepository.AddColor(green2);
+            ColorRepository.AddColor(yellow2);
+            ColorRepository.AddColor(orange2);
+            ColorRepository.AddColor(purple2);
+            ColorRepository.AddColor(caramel2);
+            ColorRepository.AddColor(green3);
+            ColorRepository.AddColor(yellow3);
+            ColorRepository.AddColor(orange3);
+            ColorRepository.AddColor(purple3);
+            ColorRepository.AddColor(caramel3);
+            ColorRepository.AddColor(green4);
+            ColorRepository.AddColor(yellow4);
+            ColorRepository.AddColor(orange4);
+            ColorRepository.AddColor(purple4);
+            ColorRepository.AddColor(caramel4);
+            ColorRepository.AddColor(green5);
+            ColorRepository.AddColor(yellow5);
+            ColorRepository.AddColor(orange5);
+            ColorRepository.AddColor(purple5);
+            ColorRepository.AddColor(caramel5);
+
             ProductRepository.AddProduct(new Product
             {
                 Name = "Super Hammer",

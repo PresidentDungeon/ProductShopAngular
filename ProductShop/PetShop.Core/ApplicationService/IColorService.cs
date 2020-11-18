@@ -1,4 +1,5 @@
 ﻿using PetShop.Core.Entities;
+using ProductShop.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,8 @@ namespace PetShop.Core.ApplicationService
         List<Color> GetAllColors();
 
         List<Color> GetColorsFilterSearch(Filter filter);
+
+        FilterList<Color> GetColorsFilterSearchList(Filter filter);
 
         Color GetColorByID(int ID);
 
