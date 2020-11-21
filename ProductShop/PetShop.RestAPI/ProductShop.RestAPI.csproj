@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EmailTest\EmailTest.csproj" />
     <ProjectReference Include="..\PetShop.Core.Entities\ProductShop.Core.Entities.csproj" />
     <ProjectReference Include="..\PetShop.Core\ProductShop.Core.csproj" />
     <ProjectReference Include="..\PetShop.Infrastructure.DataInitializer\ProductShop.Infrastructure.DataInitializer.csproj" />

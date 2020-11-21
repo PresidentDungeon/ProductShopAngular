@@ -1,4 +1,5 @@
 using System;
+using EmailTest;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +51,7 @@ namespace PetShop.RestAPI
             
             services.AddSingleton<IAuthenticationHelper>(new AuthenticationHelper(secretBytes));
             services.AddScoped<InitStaticData>();
+            services.AddScoped<EmailService>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
             { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -127,7 +129,9 @@ namespace PetShop.RestAPI
                         ctx.Database.EnsureCreated();
 
                         InitStaticData dataInitilizer = scope.ServiceProvider.GetRequiredService<InitStaticData>();
+                        EmailService service = scope.ServiceProvider.GetRequiredService<EmailService>();
                         dataInitilizer.InitData();
+                        service.sendEmail();
                     }
                     else
                     {
